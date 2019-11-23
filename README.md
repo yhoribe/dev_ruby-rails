@@ -2,9 +2,9 @@
 
 ## Environment
 
-・ELB(h2o)
-・app(ruby,unicorn,nginx)
-・mysql5.7
+- ELB(h2o)
+- app(ruby2.3.1,unicorn,nginx)
+- mysql5.7
 
 
 # add host
