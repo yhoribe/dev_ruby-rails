@@ -7,14 +7,14 @@
 - mysql5.7
 
 
-# add host
+## add host
 
 ```
 sudo vim /etc/hosts
 127.0.0.1 adachin.com
 ```
 
-# make docker network
+## make docker network
 
 ```
 docker network create \
@@ -24,7 +24,7 @@ docker network create \
 adachin
 ```
 
-# RUN
+## Run
 
 ```
 docker-compose up -d
@@ -49,7 +49,7 @@ $ docker exec -it --user deploy adachin-app-6-11 bash
 # unicorn_rails -c config/dev_unicorn.rb -E development -D
 ```
 
-- Access
+## Access
 
 http://adachin.com/
 
