@@ -1,0 +1,55 @@
+[client]
+socket          = /var/run/mysqld/mysqld.sock
+
+[mysqld]
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+datadir         = /var/mysql
+#log-error      = /var/log/mysql/error.log
+
+# By default we only accept connections from localhost
+#bind-address   = 127.0.0.1
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+transaction-isolation = READ-COMMITTED
+
+#innodb_buffer_pool_size = 128M
+
+#general_log=1
+#general_log_file=/var/log/mysql/general.log
+
+user=mysql
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+sql_mode=ANSI,ALLOW_INVALID_DATES,ANSI_QUOTES,ERROR_FOR_DIVISION_BY_ZERO,HIGH_NOT_PRECEDENCE,IGNORE_SPACE,NO_AUTO_CREATE_USER,NO_AUTO_VALUE_ON_ZERO,NO_BACKSLASH_ESCAPES,NO_DIR_IN_CREATE,NO_ENGINE_SUBSTITUTION,NO_FIELD_OPTIONS,NO_KEY_OPTIONS,NO_TABLE_OPTIONS,NO_UNSIGNED_SUBTRACTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,ONLY_FULL_GROUP_BY,PAD_CHAR_TO_FULL_LENGTH,PIPES_AS_CONCAT,REAL_AS_FLOAT,STRICT_ALL_TABLES,STRICT_TRANS_TABLES,TRADITIONAL
+
+#character_set_client = utf8mb4
+#character_set_connection = utf8mb4
+#character_set_database = utf8mb4
+character_set_filesystem = binary
+#character_set_results = utf8mb4
+character_set_server = utf8mb4
+#character_set_system = utf8bm4
+
+#collation_connection = utf8_bin
+#collation_database = utf8_bin
+#collation_server = utf8_bin
+
+#skip-character-set-client-handshake
+
+# FullTextIndex
+innodb_ft_enable_stopword = 0
+innodb_ft_min_token_size = 1
+innodb_file_format = barracuda
+innodb_large_prefix = 1
+
+#max_allowed_packet=15MB
+
+#wait_timeout = 3600
+
+table_definition_cache=400
+

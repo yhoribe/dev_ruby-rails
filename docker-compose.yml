@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+  elb:
+    build: ./elb
+    image: adachin-elb
+    hostname: elb
+    networks:
+      lancers:
+        ipv4_address: 10.100.50.11
+    extra_hosts:
+       - "adachin.com:10.100.6.11"
+    container_name: adachin-elb-50-11
+    ports:
+      - 80:80
+      - 443:443
+  app:
+    build: ./app
+    image: adachin-app
+    hostname: app
+    networks:
+      adachin:
+        ipv4_address: 10.100.6.11
+    extra_hosts:
+      - "adachin.com:10.100.50.11"
+    container_name: adachin-app-6-11
+    volumes:
+      - ~/www/ruby:/app
+  mysql:
+    build: ./mysql
+    image: adachin-mysql
+    hostname: mysql
+    networks:
+      lancers:
+        ipv4_address: 10.100.51.11
+    container_name: adachin-mysql-51-11
+    ports:
+      - 3306:3306
+
+networks:
+  adachin:
+    external: true
