@@ -5,6 +5,7 @@
 - ELB(h2o)
 - app(ruby2.3.1,unicorn,nginx)
 - mysql5.7
+- deploy-container(alpine)→ssh/Confirm DB connection, use aws-cli
 
 
 ## add host
