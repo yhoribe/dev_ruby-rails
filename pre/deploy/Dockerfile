@@ -27,8 +27,8 @@ RUN apk update && \
     curl \
     groff \
     mysql-client \
-    openrc \
     bash \
+    supervisor \
     vim && \
     rm -rf /var/cache/apk/*
 
@@ -37,31 +37,28 @@ RUN curl ${pip_installer} | python && \
     pip install awscli
 
 # Create adachin user
-RUN apk add sudo 
+RUN apk add sudo
 RUN adduser -D adachin
 RUN sed -ri 's/^wheel:x:10:/wheel:x:10:adachin/' /etc/group
 RUN sed -ri 's/^# %wheel/adachin/' /etc/sudoers
 RUN sed -ri '85 s/adachin/#adachin/' /etc/sudoers
-COPY shadow /etc/
+COPY common/shadow /etc/
 COPY .vimrc /root/
 COPY .vimrc /home/adachin/
-COPY prompt.sh /etc/profile.d/
 RUN echo Set disable_coredump false > /etc/sudo.conf
 
 # Setup ssh
-RUN sed -ri 's/^#Port 22/Port 22222/' /etc/ssh/sshd_config
+RUN sed -ri 's/^#Port 22/Port 2222/' /etc/ssh/sshd_config
 RUN sed -ri 's/^#PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config
 RUN sed -ri 's/^#PermitRootLogin yes/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -ri 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 RUN sed -ri 's/^#PermitUserEnvironment no/PermitUserEnvironment no/' /etc/ssh/sshd_config
-RUN sed -ri 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
-RUN sed -ri '269 s/cgroup_add_service/#cgroup_add_service/' /lib/rc/sh/openrc-run.sh
-RUN rc-update add sshd
-RUN mkdir /run/openrc && touch /run/openrc/softlevel
-RUN rc-status
+RUN ssh-keygen -A
 
-COPY ./service.sh /root/
-RUN chmod 744 /root/service.sh
+# setting superviser
+COPY supervisor/sshd.conf /etc/supervisor/conf.d/sshd.conf
+RUN echo files = /etc/supervisor/conf.d/*.conf >> /etc/supervisord.conf
 
 # Service to run
-CMD ["/root/service.sh"]
+CMD [ "/usr/bin/supervisord" ]
+
