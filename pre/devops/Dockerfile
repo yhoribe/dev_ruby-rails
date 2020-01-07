@@ -27,7 +27,6 @@ RUN apk update && \
     curl \
     groff \
     mysql-client \
-    bash \
     supervisor \
     vim && \
     rm -rf /var/cache/apk/*
@@ -53,7 +52,6 @@ RUN sed -ri 's/^#PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/ssh
 RUN sed -ri 's/^#PermitRootLogin yes/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -ri 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 RUN sed -ri 's/^#PermitUserEnvironment no/PermitUserEnvironment no/' /etc/ssh/sshd_config
-RUN sed -ri 's/^#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config
 RUN ssh-keygen -A
 
 # setting superviser
