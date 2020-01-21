@@ -32,11 +32,15 @@ RUN apt-get update -y && \
     apt-get clean -y && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
-# Create adachin user
-RUN useradd -m adachin 
-RUN passwd -d adachin
-RUN sed -ri 's/^wheel:x:10:/wheel:x:10:adachin/' /etc/group
-RUN sed -ri 's/^# %wheel/adachin/' /etc/sudoers
+# Create deploy user
+RUN useradd -m -u1000 deploy
+RUN useradd -u1001 wheel
+RUN passwd -d deploy
+COPY common/shadow /etc/
+RUN usermod -aG wheel deploy
+RUN sed -ri 's/^wheel:x:1002:/wheel:x:1002:deploy/' /etc/group
+RUN echo "%wheel    ALL=(ALL)       ALL" >> /etc/sudoers
+
 
 RUN wget https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERSION}/entrykit_${ENTRYKIT_VERSION}_Linux_x86_64.tgz \
   && tar -xvzf entrykit_${ENTRYKIT_VERSION}_Linux_x86_64.tgz \
