@@ -30,6 +30,7 @@ adachin
 ## Run
 
 ```
+cd dev
 docker-compose up -d
 ```
 
