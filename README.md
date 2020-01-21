@@ -9,6 +9,11 @@
 - pre
   - deploy-container(alpine)→ssh/Confirm DB connection, use aws-cli
 
+## Gem
+
+- therubyracer
+
+Please use Dockerfile_debian because the gem does not work with alpine
 
 ## add host
 
