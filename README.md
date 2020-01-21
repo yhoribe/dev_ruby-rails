@@ -9,6 +9,13 @@
 - pre
   - deploy-container(alpine)→ssh/Confirm DB connection, use aws-cli
 
+- Setting Repository
+local mount
+
+```
+~/www/ruby
+```
+
 ## Gem
 
 - therubyracer
