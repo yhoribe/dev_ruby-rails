@@ -1,10 +1,10 @@
 worker_processes 2
 
-app_path = '/var/www/app'
+app_path = '/var/www/ruby'
 working_directory = app_path
 
-listen  File.expand_path('tmp/sockets/unicorn.sock', app_path)
-pid File.expand_path('tmp/pids/unicorn.pid', app_path)
+listen  File.expand_path('/home/deploy/sockets/unicorn.sock', app_path)
+pid File.expand_path('/home/deploy/pids/unicorn.pid', app_path)
 stderr_path File.expand_path('log/unicorn.stderr.log', app_path)
 stdout_path File.expand_path('log/unicorn.stdout.log', app_path)
 
