@@ -61,8 +61,8 @@ $ cp ~/www/ruby/docker/app/dev_unicorn.rb ~/www/ruby/config/
 ```
 $ docker exec -it --user deploy adachin-app-6-11 bash
 # bundle install --path /home/deploy/vendor/bundle
-# rake db:init
-# unicorn_rails -c config/dev_unicorn.rb -E development -D
+# bundle exec rake db:init
+# bundle exec unicorn_rails -c config/dev_unicorn.rb -E development -D
 ```
 
 ## Access
