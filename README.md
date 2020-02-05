@@ -3,7 +3,7 @@
 ## Environment
 
 - ELB(h2o)
-- app(ruby2.3.1,unicorn,nginx)
+- app(ruby2.6.5,unicorn,nginx)
 - mysql5.7
 
 - pre
