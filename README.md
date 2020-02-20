@@ -50,17 +50,17 @@ docker-compose up -d
 
 - fix env
 ```
-$ cd ~/www/ruby
+$ cd ~/www/app
 $ cp config/mail.yml.example config/mail.yml
 $ cp .env.example .env
 $ vim .env
 DATABASE_HOST="10.100.51.11"
-$ cp ~/www/ruby/docker/app/dev_unicorn.rb ~/www/ruby/config/
+$ cp ~/www/app/docker/app/dev_unicorn.rb ~/www/app/config/
 ```
 
 ```
-$ docker exec -it --user deploy adachin-app-6-11 bash
-# bundle install --path /home/deploy/vendor/bundle
+$ docker exec -it adachin-app-6-11 bash
+# bundle install --path /root/vendor/bundle
 # bundle exec rake db:init
 # bundle exec unicorn_rails -c config/dev_unicorn.rb -E development -D
 ```

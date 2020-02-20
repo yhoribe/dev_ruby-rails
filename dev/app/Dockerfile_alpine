@@ -4,7 +4,7 @@ ENV LANG C.UTF-8
 
 ENV ENTRYKIT_VERSION 0.4.0
 
-ENV APP_ROOT /app
+WORKDIR $APP_ROOT
 
 # linux-headers: raindrops
 # qt5-qtwebkit-dev: capybara-webkit
@@ -22,12 +22,6 @@ RUN apk update && \
     $DEV_PACKAGES \
     $RUBY_PACKAGES \
     $GEM_PACKAGES
-
-# Create deploy user
-RUN adduser -S deploy
-RUN passwd -d deploy
-RUN sed -ri 's/^wheel:x:10:/wheel:x:10:deploy/' /etc/group
-RUN sed -ri 's/^# %wheel/deploy/' /etc/sudoers
 
 RUN wget https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERSION}/entrykit_${ENTRYKIT_VERSION}_Linux_x86_64.tgz \
   && tar -xvzf entrykit_${ENTRYKIT_VERSION}_Linux_x86_64.tgz \
