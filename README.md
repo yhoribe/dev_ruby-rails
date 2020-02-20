@@ -2,18 +2,21 @@
 
 ## Environment
 
-- ELB(h2o)
-- app(ruby2.6.5,unicorn,nginx)
-- mysql5.7
+- dev
+  - ELB(h2o)
+  - app(ruby2.6.5,unicorn,nginx)
+  - mysql5.7
 
 - pre
   - deploy-container(alpine)→ssh/Confirm DB connection, use aws-cli
+  - app
 
+## dev
 - Setting Repository
 local mount
 
 ```
-~/www/ruby
+~/www/app
 ```
 
 ## Gem
@@ -68,4 +71,25 @@ $ docker exec -it adachin-app-6-11 bash
 ## Access
 
 http://adachin.com/
+
+## Pre
+
+used circleci
+
+## Manual
+
+- build run
+```
+cd www/app/
+docker build -f docker/pre/app/Dockerfile -t xxxxxxxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/adachin-app-pre:latest .
+docker run -it --name=adachin-app-pre xxxxxxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/adachin-app-pre bash
+vim .env
+```
+
+- ecr push
+```
+aws ecr get-login-password --profile pre-adachin-ecr | docker login --username AWS --password-stdin xxxxxxxxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/
+docker commit adachin-app-pre xxxxxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/adachin-app-pre:latest
+docker push xxxxxxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/adachin-app-pre:latest
+```
 
