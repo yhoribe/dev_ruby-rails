@@ -1,4 +1,5 @@
-![スクリーンショット 2019-11-23 23 05 17](https://user-images.githubusercontent.com/5633085/69479890-bf1b6f80-0e45-11ea-856a-6290a5c8430b.jpg)
+![69479890-bf1b6f80-0e45-11ea-856a-6290a5c8430b](https://user-images.githubusercontent.com/5633085/74911372-cbd94080-53ff-11ea-9317-4ec3b3e7453e.jpg)
+
 
 ## Environment
 
@@ -8,6 +9,7 @@
   - mysql5.7
 
 - pre
+  - ECS/Fargate
   - deploy-container(alpine)→ssh/Confirm DB connection, use aws-cli
   - app
 
