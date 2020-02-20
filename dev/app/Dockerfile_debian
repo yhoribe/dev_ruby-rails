@@ -23,7 +23,6 @@ RUN apt-get update -y && \
     openssl \
     ruby-dev \
     ruby-json \
-    sudo \
     tzdata \
     vim \
     zlib1g-dev && \

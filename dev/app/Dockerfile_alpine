@@ -8,7 +8,7 @@ WORKDIR $APP_ROOT
 
 # linux-headers: raindrops
 # qt5-qtwebkit-dev: capybara-webkit
-ENV BASE_PACKAGES="sudo git openssl" \
+ENV BASE_PACKAGES="git openssl" \
     BUILD_PACKAGES="bash curl-dev ruby-dev build-base" \
     DEV_PACKAGES="zlib-dev libxml2-dev libxslt-dev tzdata yaml-dev mysql-dev nginx" \
     RUBY_PACKAGES="ruby-json yaml nodejs" \
