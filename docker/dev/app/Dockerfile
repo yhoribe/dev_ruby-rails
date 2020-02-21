@@ -1,7 +1,10 @@
-FROM ruby:2.6.5
+FROM ruby:2.5.7
 
 ENV LANG C.UTF-8
 ENV ENTRYKIT_VERSION 0.4.0
+ENV QMAKE=/usr/lib/qt5/bin/qmake
+ENV APP_ROOT /var/www/app
+
 WORKDIR $APP_ROOT
 
 RUN apt-get update -y && \
@@ -25,6 +28,7 @@ RUN apt-get update -y && \
     ruby-json \
     tzdata \
     vim \
+    supervisor \
     zlib1g-dev && \
     apt-get clean -y && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
@@ -36,26 +40,22 @@ RUN wget https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERS
   && chmod +x /bin/entrykit \
   && entrykit --symlink
 
+# make directory 
 RUN mkdir -p $APP_ROOT
 
-RUN echo 'gem: --no-document' >> ~/.gemrc && \
-    cp ~/.gemrc /etc/gemrc && \
-    chmod uog+r /etc/gemrc && \
-    bundle config --global build.nokogiri --use-system-libraries
-
-ENV QMAKE=/usr/lib/qt5/bin/qmake
+# build nokogiri
+COPY gemrc/.gemrc /etc/gemrc/
+RUN chmod +r /etc/gemrc
+RUN bundle config --global build.nokogiri --use-system-libraries
 
 # nginx
 RUN groupadd nginx
 RUN useradd -g nginx nginx
-ADD nginx.conf /etc/nginx/nginx.conf
-ADD adachin.conf /etc/nginx/conf.d/adachin.conf
+ADD nginx/nginx.conf /etc/nginx/nginx.conf
+ADD nginx/adachin.conf /etc/nginx/conf.d/adachin.conf
 
-EXPOSE 3000
+# setting superviser
+COPY supervisor/app.conf /etc/supervisor/conf.d/app.conf
 
 # Service to run
-COPY ./service.sh /root/
-RUN chmod 744 /root/service.sh
-
-CMD ["/root/service.sh"]
-
+CMD [ "/usr/bin/supervisord" ]

@@ -8,7 +8,7 @@ pid File.expand_path('tmp/pids/unicorn.pid', app_path)
 stderr_path File.expand_path('log/unicorn.stderr.log', app_path)
 stdout_path File.expand_path('log/unicorn.stdout.log', app_path)
 
-timeout 50
+timeout 500
 
 preload_app true
 

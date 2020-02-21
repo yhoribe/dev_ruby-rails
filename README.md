@@ -5,7 +5,7 @@
 
 - dev
   - ELB(h2o)
-  - app(ruby2.6.5,unicorn,nginx)
+  - app(ruby2.5.7,unicorn,nginx,supervisor)
   - mysql5.7
 
 - pre
@@ -25,7 +25,7 @@ local mount
 
 - therubyracer
 
-Please use Dockerfile_debian because the gem does not work with alpine
+Please use Dockerfile because the gem does not work with Dockerfile-alpine
 
 ## add host
 
