@@ -3,7 +3,7 @@ FROM ruby:2.5.7
 ENV LANG C.UTF-8
 ENV ENTRYKIT_VERSION 0.4.0
 ENV QMAKE=/usr/lib/qt5/bin/qmake
-ENV APP_ROOT /var/www/ccc
+ENV APP_ROOT /var/www/app
 
 WORKDIR $APP_ROOT
 
@@ -41,16 +41,16 @@ RUN wget https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERS
   && chmod +x /bin/entrykit \
   && entrykit --symlink
 
-# copy ccc
+# copy app
 RUN mkdir -p $APP_ROOT
 COPY . $APP_ROOT
 RUN cp $APP_ROOT/config/mail.yml.example $APP_ROOT/config/mail.yml
-RUN \cp -f $APP_ROOT/.env-pre $APP_ROOT/.env
+RUN cp docker/pre/app/.env.example $APP_ROOT/.env
 
-RUN echo 'gem: --no-document' >> ~/.gemrc && \
-    cp ~/.gemrc /etc/gemrc && \
-    chmod uog+r /etc/gemrc && \
-    bundle config --global build.nokogiri --use-system-libraries
+# build nokogiri
+COPY docker/pre/app/gemrc/.gemrc /etc/gemrc/
+RUN chmod +r /etc/gemrc
+RUN bundle config --global build.nokogiri --use-system-libraries
 
 # bundle install
 RUN bundle install --path vendor/bundle
@@ -60,7 +60,7 @@ RUN bundle exec rake assets:precompile RAILS_ENV=pre
 RUN groupadd nginx
 RUN useradd -g nginx nginx
 ADD docker/pre/app/nginx/nginx.conf /etc/nginx/nginx.conf
-ADD docker/pre/app/nginx/ccc.conf /etc/nginx/conf.d/ccc.conf
+ADD docker/pre/app/nginx/adachin.conf /etc/nginx/conf.d/adachin.conf
 
 # setting superviser
 COPY docker/pre/app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
