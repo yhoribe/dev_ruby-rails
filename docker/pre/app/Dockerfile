@@ -26,7 +26,6 @@ RUN apt-get update -y && \
     openssl \
     ruby-dev \
     ruby-json \
-    sudo \
     tzdata \
     vim \
     supervisor \
