@@ -25,7 +25,7 @@ services:
       - "adachin.com:10.100.50.11"
     container_name: adachin-app-6-11
     volumes:
-      - ~/www/ruby:/www/ruby/
+      - ~/www/app:/www/app/
   mysql:
     build: ./mysql
     image: adachin-mysql
