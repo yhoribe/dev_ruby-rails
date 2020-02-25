@@ -7,6 +7,10 @@ ENV APP_ROOT /var/www/app
 
 WORKDIR $APP_ROOT
 
+# Setup UTC+9
+RUN cp -p /etc/localtime /etc/localtime.UTC \
+    && cp -p /usr/share/zoneinfo/Japan /etc/localtime
+
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
